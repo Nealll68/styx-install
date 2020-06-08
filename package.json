@@ -1,0 +1,26 @@
+{
+  "name": "styx-install",
+  "version": "1.0.0",
+  "description": "Tool to easily install Styx interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "styx-install": "./index.js"
+  },
+  "keywords": [
+    "Styx",
+    "CLI"
+  ],
+  "author": "Nealll",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "figlet": "^1.4.0",
+    "shelljs": "^0.8.4",
+    "simple-git": "^2.6.0"
+  }
+}
