@@ -12,12 +12,13 @@ const run = async () => {
   const git = simpleGit()
 
   clear()  
-  console.log(chalk.green(figlet.textSync('Styx', { horizontalLayout: 'full' })))
 
   if (!shell.which('git')) {
     console.log(chalk.bgRed('This script requires git'))
     process.exit()
   }
+  
+  console.log(chalk.green(figlet.textSync('Styx', { horizontalLayout: 'full' })))
   
   /*
     CLONE STYX REPO
