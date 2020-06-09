@@ -34,32 +34,30 @@ const run = async () => {
   
     try {
       await git.clone('https://github.com/Nealll68/styx', process.cwd())
+      status.stop()
+      console.log(chalk.green('Github repository cloned'))
     } catch (e) {
       console.log(chalk.bgRed('An error happened while cloning github repository'))
       console.log(chalk.red(e))
       process.exit()
-    } finally {
-      status.stop()
-      console.log(chalk.green('Github repository cloned'))
-    }
+    }    
   } else {
     /*
       PULL STYX REPO
     */
    
-   status.message('Pulling Styx github repository...')
-   status.start()
- 
-   try {
-     await git.pull()
-   } catch (e) {
-     console.log(chalk.bgRed('An error happened while pulling github repository'))
-     console.log(chalk.red(e))
-     process.exit()
-   } finally {
-     status.stop()
-     console.log(chalk.green('Github repository pulled'))
-   }
+    status.message('Pulling Styx github repository...')
+    status.start()
+
+    try {
+      await git.pull()
+      status.stop()
+      console.log(chalk.green('Github repository pulled'))
+    } catch (e) {
+      console.log(chalk.bgRed('An error happened while pulling github repository'))
+      console.log(chalk.red(e))
+      process.exit()
+    }
   }
 
   /*
