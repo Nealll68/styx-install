@@ -7,8 +7,10 @@ const Spinner = require('clui').Spinner
 
 const shell = require('shelljs')
 const simpleGit = require('simple-git')
+const argv = require('minimist')(process.argv.slice(2))
 
-const run = async () => { 
+const run = async () => {
+  const isUpdate = argv.update
   const git = simpleGit()
 
   clear()  
@@ -17,26 +19,46 @@ const run = async () => {
     console.log(chalk.bgRed('This script requires git'))
     process.exit()
   }
-  
+
   console.log(chalk.green(figlet.textSync('Styx', { horizontalLayout: 'full' })))
+   
+  if (!isUpdate) {
+    /*
+      CLONE STYX REPO
+      https://github.com/Nealll68/styx
+    */
+
+    const status = new Spinner('Cloning Styx github repository...')
+    status.start()
   
-  /*
-    CLONE STYX REPO
-    https://github.com/Nealll68/styx
-  */
-
-  const status = new Spinner('Cloning Styx github repository...')
-  status.start()
-
-  try {
-    await git.clone('https://github.com/Nealll68/styx', process.cwd())
-  } catch (e) {
-    console.log(chalk.bgRed('An error happened while cloning github repository'))
-    console.log(chalk.red(e))
-    process.exit()
-  } finally {
-    status.stop()
-    console.log(chalk.green('Github repository cloned'))
+    try {
+      await git.clone('https://github.com/Nealll68/styx', process.cwd())
+    } catch (e) {
+      console.log(chalk.bgRed('An error happened while cloning github repository'))
+      console.log(chalk.red(e))
+      process.exit()
+    } finally {
+      status.stop()
+      console.log(chalk.green('Github repository cloned'))
+    }
+  } else {
+    /*
+      PULL STYX REPO
+    */
+   
+   const status = new Spinner('Pulling Styx github repository...')
+   status.start()
+ 
+   try {
+     await git.pull()
+   } catch (e) {
+     console.log(chalk.bgRed('An error happened while pulling github repository'))
+     console.log(chalk.red(e))
+     process.exit()
+   } finally {
+     status.stop()
+     console.log(chalk.green('Github repository pulled'))
+   }
   }
 
   /*
@@ -57,34 +79,36 @@ const run = async () => {
   status.stop()
   console.log(chalk.green('Packages installed'))
 
-  /*
-    CREATE .ENV FILE
-  */
+  if (!isUpdate) {
 
-  status.message('Creating .env file...')
-  status.start()
+    /*
+      CREATE .ENV FILE
+    */
 
-  const cpExec = shell.cp('.env.example', '.env')
+    status.message('Creating .env file...')
+    status.start()
 
-  if (cpExec.code !== 0) {
-    console.log(chalk.bgRed('An error happened while creating .env file'))
-    console.log(chalk.red(`Exit code : ${cpExec.code}`))
-    console.log(chalk.red(`Stderr : ${cpExec.stderr}`))
-  }
+    const cpExec = shell.cp('.env.example', '.env')
 
-  status.stop()
-  console.log(chalk.green('.env file created'))
+    if (cpExec.code !== 0) {
+      console.log(chalk.bgRed('An error happened while creating .env file'))
+      console.log(chalk.red(`Exit code : ${cpExec.code}`))
+      console.log(chalk.red(`Stderr : ${cpExec.stderr}`))
+    }
 
-  /*
-    GENERATE APP KEY
-  */
+    status.stop()
+    console.log(chalk.green('.env file created'))
 
-  status.message('Generating app key...')
-  status.start()
+    /*
+      GENERATE APP KEY
+    */
 
-  const keyExec = shell.exec('node ace key:generate', { silent: true })
+    status.message('Generating app key...')
+    status.start()
 
-  if (keyExec.code !== 0) {
+    const keyExec = shell.exec('node ace key:generate', { silent: true })
+
+    if (keyExec.code !== 0) {
       console.log(chalk.bgRed('An error happened while generating app key'))
       console.log(chalk.red(`Exit code : ${keyExec.code}`))
       console.log(chalk.red(`Stderr : ${keyExec.stderr}`))
@@ -92,6 +116,8 @@ const run = async () => {
 
     status.stop()
     console.log(chalk.green('App key generated'))
+
+  }
 
   /*
     RUN DATABASE MIGRATIONS
