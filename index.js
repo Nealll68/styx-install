@@ -21,6 +21,7 @@ const run = async () => {
   }
 
   console.log(chalk.green(figlet.textSync('Styx', { horizontalLayout: 'full' })))
+  const status = new Spinner()
    
   if (!isUpdate) {
     /*
@@ -28,7 +29,7 @@ const run = async () => {
       https://github.com/Nealll68/styx
     */
 
-    const status = new Spinner('Cloning Styx github repository...')
+    status.message('Cloning Styx github repository...')
     status.start()
   
     try {
@@ -46,7 +47,7 @@ const run = async () => {
       PULL STYX REPO
     */
    
-   const status = new Spinner('Pulling Styx github repository...')
+   status.message('Pulling Styx github repository...')
    status.start()
  
    try {
@@ -74,6 +75,7 @@ const run = async () => {
     console.log(chalk.bgRed('An error happened while installing packages'))
     console.log(chalk.red(`Exit code : ${npmExec.code}`))
     console.log(chalk.red(`Stderr : ${npmExec.stderr}`))
+    process.exit()
   }
 
   status.stop()
@@ -94,6 +96,7 @@ const run = async () => {
       console.log(chalk.bgRed('An error happened while creating .env file'))
       console.log(chalk.red(`Exit code : ${cpExec.code}`))
       console.log(chalk.red(`Stderr : ${cpExec.stderr}`))
+      process.exit()
     }
 
     status.stop()
@@ -112,6 +115,7 @@ const run = async () => {
       console.log(chalk.bgRed('An error happened while generating app key'))
       console.log(chalk.red(`Exit code : ${keyExec.code}`))
       console.log(chalk.red(`Stderr : ${keyExec.stderr}`))
+      process.exit()
     }
 
     status.stop()
@@ -132,6 +136,7 @@ const run = async () => {
     console.log(chalk.bgRed('An error happened while running database migrations'))
     console.log(chalk.red(`Exit code : ${migrationExec.code}`))
     console.log(chalk.red(`Stderr : ${migrationExec.stderr}`))
+    process.exit()
   }
 
   status.stop()
@@ -150,6 +155,7 @@ const run = async () => {
     console.log(chalk.bgRed('An error happened while building app'))
     console.log(chalk.red(`Exit code : ${buildExec.code}`))
     console.log(chalk.red(`Stderr : ${buildExec.stderr}`))
+    process.exit()
   }
 
   status.stop()
