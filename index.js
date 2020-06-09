@@ -94,8 +94,7 @@ const run = async () => {
   await app.build()
   console.log(chalk.green('App builded'))
 
-  console.log(chalk.bgGreen())
-  console.log(chalk.red('Styx has been successfully installed'))
+  console.log(chalk.bgGreen('Styx has been successfully installed'))
 }
 
 run()
