@@ -75,19 +75,6 @@ const run = async () => {
       console.log(chalk.red(`Stderr : ${e}`))
       process.exit()
     }
-
-    /*
-      GENERATE APP KEY
-    */
-
-    /*try {
-      await app.key()
-      console.log(chalk.green('App key generated'))
-    } catch (e) {
-      console.log(chalk.bgRed('An error happened while generating app key'))
-      console.log(chalk.red(`Stderr : ${e}`))
-      process.exit()
-    }*/
   }
 
   /*
