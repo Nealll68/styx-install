@@ -24,6 +24,7 @@ const run = async () => {
   console.log(chalk.green(figlet.textSync('Styx', { horizontalLayout: 'full' })))
   console.log()
   console.log(chalk.bold.underline(`Please wait while styx is ${isUpdate ? 'updating' : 'installing'}`))
+  console.log()
 
   if (!isUpdate) {
     /*
