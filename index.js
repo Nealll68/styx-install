@@ -58,10 +58,11 @@ const run = async () => {
     console.log(chalk.green('Packages installed'))
   } catch (e) {
     console.log(chalk.bgRed('An error happened while installing packages'))
-    console.log(chalk.red(`Exit code : ${e.code}`))
-    console.log(chalk.red(`Stderr : ${e.stderr}`))
+    //console.log(chalk.red(`Exit code : ${e.code}`))
+    console.log(chalk.red(`Stderr : ${e}`))
     process.exit()
   }
+  process.exit()
 
   if (!isUpdate) {
     /*
