@@ -3,6 +3,7 @@
 const clear = require('clear')
 const chalk = require('chalk')
 const figlet = require('figlet')
+const logSymbols = require('log-symbols')
 
 const argv = require('minimist')(process.argv.slice(2))
 
@@ -21,6 +22,8 @@ const run = async () => {
   }
 
   console.log(chalk.green(figlet.textSync('Styx', { horizontalLayout: 'full' })))
+  console.log()
+  console.log(chalk.bold.underline(`Please wait while styx is ${isUpdate ? 'updating' : 'installing'}`))
 
   if (!isUpdate) {
     /*
@@ -29,7 +32,7 @@ const run = async () => {
     */
     try {
       await git.clone(process.cwd())
-      console.log(chalk.green('Github repository cloned'))
+      console.log(logSymbols.success, 'Github repository cloned')
     } catch (e) {
       console.log(chalk.bgRed('An error happened while cloning github repository'))
       console.log(chalk.red(e))
@@ -41,7 +44,7 @@ const run = async () => {
     */
     try {
       await git.pull()
-      console.log(chalk.green('Github repository pulled'))
+      console.log(logSymbols.success, 'Github repository pulled')
     } catch (e) {
       console.log(chalk.bgRed('An error happened while pulling github repository'))
       console.log(chalk.red(e))
@@ -55,7 +58,7 @@ const run = async () => {
 
   try {
     await npm.install()
-    console.log(chalk.green('Packages installed'))
+    console.log(logSymbols.success, 'Packages installed')
   } catch (e) {
     console.log(chalk.bgRed('An error happened while installing packages'))
     console.log(chalk.red(`Stderr : ${e}`))
@@ -69,7 +72,7 @@ const run = async () => {
 
     try {
       await app.env()
-      console.log(chalk.green('.env file created'))
+      console.log(logSymbols.success, '.env file created')
     } catch (e) {
       console.log(chalk.bgRed('An error happened while creating .env file'))
       console.log(chalk.red(`Stderr : ${e}`))
@@ -83,7 +86,7 @@ const run = async () => {
 
   try {
     await app.runMigrations()
-    console.log(chalk.green('Database migrations runned'))
+    console.log(logSymbols.success, 'Database migrations runned')
   } catch (e) {
     console.log(chalk.bgRed('An error happened while running database migrations'))
     console.log(chalk.red(`Stderr : ${e}`))
@@ -96,14 +99,15 @@ const run = async () => {
 
   try {
     await app.build()
-    console.log(chalk.green('App builded'))
+    console.log(logSymbols.success, 'App builded')
   } catch (e) {
     console.log(chalk.bgRed('An error happened while building app'))
     console.log(chalk.red(`Stderr : ${e}`))
     process.exit()
   }
 
-  console.log(chalk.bgGreen('Styx has been successfully installed'))
+  console.log()
+  console.log(logSymbols.success, `Styx has been successfully ${isUpdate ? 'updated' : 'installed'}`)
 }
 
 run()
