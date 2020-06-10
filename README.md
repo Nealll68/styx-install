@@ -3,10 +3,11 @@
 This program simplify the installation and the update of the [Styx interface](https://www.github.com/Nealll68/Styx)
 
 ## Usage
-To install :
+To install : 
 ```
 npx https://www.github.com/Nealll68/styx-install
 ```
+**Notes: this will not create a directory ! So, create a directory where the app will reside before run this command**
 
 To update :
 ```
