@@ -8,7 +8,7 @@ const argv = require('minimist')(process.argv.slice(2))
 
 const git = require('./lib/git')
 const npm = require('./lib/npm')
-const app = require('./lib/app')
+//const app = require('./lib/app')
 
 const run = async () => {
   const isUpdate = argv.update
