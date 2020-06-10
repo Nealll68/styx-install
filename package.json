@@ -25,6 +25,7 @@
     "clui": "^0.3.6",
     "command-exists": "^1.2.9",
     "figlet": "^1.4.0",
+    "log-symbols": "^4.0.0",
     "minimist": "^1.2.5",
     "shelljs": "^0.8.4",
     "simple-git": "^2.6.0"
