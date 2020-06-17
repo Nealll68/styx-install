@@ -57,8 +57,12 @@ const run = async () => {
   */
 
   try {
-    await app.installPackages(argv.yarn)
-    console.log(logSymbols.success, 'Packages installed')
+    if (isUpdate) {
+      await app.installPackages(argv.yarn)
+    } else {
+      await app.updatePackages(argv.yarn)
+    }
+    console.log(logSymbols.success, isUpdate ? 'Packages updated' : 'Packages installed')
   } catch (e) {
     console.log(chalk.bgRed('An error happened while installing packages'))
     console.log(chalk.red(`Stderr : ${e}`))
