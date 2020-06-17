@@ -57,7 +57,7 @@ const run = async () => {
   */
 
   try {
-    if (isUpdate) {
+    if (!isUpdate) {
       await app.installPackages(argv.yarn)
     } else {
       await app.updatePackages(argv.yarn)
