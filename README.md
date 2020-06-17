@@ -13,3 +13,9 @@ To update :
 ```
 npx https://www.github.com/Nealll68/styx-install --update
 ```
+
+If you want, you can also use Yarn instead of NPM for packages installation with the parameter --yarn :
+
+```
+npx https://www.github.com/Nealll68/styx-install --yarn
+```

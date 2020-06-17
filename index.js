@@ -8,7 +8,6 @@ const logSymbols = require('log-symbols')
 const argv = require('minimist')(process.argv.slice(2))
 
 const git = require('./lib/git')
-const npm = require('./lib/npm')
 const app = require('./lib/app')
 
 const run = async () => {
@@ -58,7 +57,7 @@ const run = async () => {
   */
 
   try {
-    await npm.install()
+    await app.installPackages(argv.yarn)
     console.log(logSymbols.success, 'Packages installed')
   } catch (e) {
     console.log(chalk.bgRed('An error happened while installing packages'))
